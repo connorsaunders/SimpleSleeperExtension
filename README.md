@@ -1,4 +1,5 @@
 # Sleeper_Fantasy_Scoreboard_Extension
+![Demo](SleeperExtensionExample.png)
 Sleeper Fantasy Scoreboard Extension is a Chrome extension that uses simple DOM manipulation to display conditionally formatted updates to your fantasy football scoreboard.
 
 # Description
