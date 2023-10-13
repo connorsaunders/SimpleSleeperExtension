@@ -3,7 +3,7 @@
 Sleeper Fantasy Scoreboard Extension is a Chrome extension that uses simple DOM manipulation to display conditionally formatted updates to your fantasy football scoreboard.
 
 # Motivation
-On Sundays I need to know exactly how much I am winning or losing by. I would always manually calculate this number (my score minute opponents) and I'd constantly refresh my matchups. I also like to visually see where I'm getting outscored on my team - where are my team's weaknesses? Where are my tean's strengths? I used to manually input this data into an excel and add conditional formatting for it.
+On Sundays I need to know exactly how much I am winning or losing by. I would always manually calculate this number (my score minus my opponents) and I'd constantly be refreshing my matchups. I also like to visually see where I'm getting outscored on my team - where are my team's weaknesses? Where are my tean's strengths? I used to manually input this data into an excel and add conditional formatting for it.
 
 # Description
 This extension calculates the difference between your score and your opponents, as well as provides a "heat map" of your players' scoring compared to your opponents.
