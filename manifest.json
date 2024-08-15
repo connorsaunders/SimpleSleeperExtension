@@ -10,18 +10,25 @@
   },
 
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "archive/popup.html",
     "default_icon": {
       "16": "screenshots/SleeperIcon.png",
       "48": "screenshots/SleeperIcon.png",
       "128": "screenshots/SleeperIcon.png"
     }
   },
+  
+  "icons": {
+    "16": "screenshots/SleeperIcon.png",
+    "48": "screenshots/SleeperIcon.png",
+    "128": "screenshots/SleeperIcon.png"
+  },
+
   "content_scripts": [
     {
-        "matches": ["https://sleeper.com/*"],
-        "js": ["contentScript.js"],
-        "run_at": "document_idle"
+      "matches": ["https://sleeper.com/*"],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
     }
-]
+  ]
 }
