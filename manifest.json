@@ -10,18 +10,17 @@
   },
 
   "action": {
-    "default_popup": "archive/popup.html",
     "default_icon": {
-      "16": "screenshots/SleeperIcon.png",
-      "48": "screenshots/SleeperIcon.png",
-      "128": "screenshots/SleeperIcon.png"
+      "16": "screenshots/SleeperLogo.png",
+      "48": "screenshots/SleeperLogo.png",
+      "128": "screenshots/SleeperLogo.png"
     }
   },
   
   "icons": {
-    "16": "screenshots/SleeperIcon.png",
-    "48": "screenshots/SleeperIcon.png",
-    "128": "screenshots/SleeperIcon.png"
+    "16": "screenshots/SleeperLogo.png",
+    "48": "screenshots/SleeperLogo.png",
+    "128": "screenshots/SleeperLogo.png"
   },
 
   "content_scripts": [
