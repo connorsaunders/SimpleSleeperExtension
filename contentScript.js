@@ -37,9 +37,7 @@ document.head.appendChild(styleSheet);
 
 // Declare variables
 let retryCount = 0;
-const maxRetries = 5;
-let interval;
-
+const maxRetries = 1;
 
 // Check scores function
 function checkScores() {
@@ -80,7 +78,6 @@ function checkScores() {
         const score2Element = allPlayersScores[i + 1];
 
         // Trim negatives for list of all positive differences
-        // REFACTOR
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
@@ -108,93 +105,81 @@ function checkScores() {
                 playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
         // Tied:
         } else { 
-                playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity})`;
-                playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity})`;
+                playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity+.05})`;
+                playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity+.05})`;
         }
     }
 
+    // Users and Scores captured:
     if (users.length === 2 && scores.length === 2) {
         // Check if either score contains '-'
         const isScore1Dash = scores[0].textContent.trim() === "-";
         const isScore2Dash = scores[1].textContent.trim() === "-";
 
-        let score1 = isScore1Dash ? 0 : parseFloat(scores[0].textContent);
-        let score2 = isScore2Dash ? 0 : parseFloat(scores[1].textContent);
+        // Declare my score and opponents score 
+        let myScore = isScore1Dash ? 0 : parseFloat(scores[0].textContent);
+        let opponentScore = isScore2Dash ? 0 : parseFloat(scores[1].textContent);
 
-        const difference = score1 - score2;
+        // Difference:
+        const difference = myScore - opponentScore;
 
+        // Add difference element:
         let displayText = "";
+        // Losing (negative difference):
         if (difference < 0) {
             displayText = `Losing by ${difference.toFixed(2)}`;
+        // Winning (positive difference):
         } else if (difference > 0) {
             displayText = `Winning by ${difference.toFixed(2)}`;
+        // Tied:
         } else {
             displayText = 'Tied'
         }
+        
+        // Create element scoreDifferenceDisplay
+        let differenceElement = document.querySelector("#scoreDifferenceDisplay");
 
-        let displayElement = document.querySelector("#scoreDifferenceDisplay");
-
-        if (!displayElement) {
-            displayElement = document.createElement("div");
-            displayElement.id = "scoreDifferenceDisplay";
-            document.body.appendChild(displayElement);
+        // Add displayElement traits:
+        if (!differenceElement) {
+            differenceElement = document.createElement("div");
+            differenceElement.id = "scoreDifferenceDisplay";
+            document.body.appendChild(differenceElement);
+            differenceElement.textContent = displayText;
+            differenceElement.style.padding = '10px';
+            differenceElement.style.textAlign = 'center';
+            differenceElement.style.backgroundColor = difference < 0 ? 'rgba(255, 0, 0, 0.15)' : (difference === 0 ? 'rgba(255, 255, 0, 0.15)' : 'rgba(0, 128, 0, 0.15)');
+            differenceElement.style.fontSize = '16px';
+            differenceElement.style.marginTop = '0px';
+            differenceElement.style.marginBottom = '10px';
+            differenceElement.style.borderRadius = '8px';
         }
 
-        displayElement.textContent = displayText;
-
-        displayElement.style.padding = '10px';
-        displayElement.style.textAlign = 'center';
-        displayElement.style.backgroundColor = difference < 0 ? 'rgba(255, 0, 0, 0.15)' : (difference === 0 ? 'rgba(255, 255, 0, 0.15)' : 'rgba(0, 128, 0, 0.15)');
-        displayElement.style.fontSize = '16px';
-        displayElement.style.marginTop = '0px';
-        displayElement.style.marginBottom = '10px';
-        displayElement.style.borderRadius = '8px';
-
+        // Insert the element:
         const matchupHeader = document.querySelector('.matchup-row');
         if (matchupHeader && matchupHeader.parentNode) {
-            matchupHeader.parentNode.insertBefore(displayElement, matchupHeader.nextSibling);
+            matchupHeader.parentNode.insertBefore(differenceElement, matchupHeader.nextSibling);
         }
 
+        // Change colors for header:
         const ownerItems = document.querySelectorAll('.matchup-owner-item');
         if (ownerItems.length === 2) {
             const ownerItem1 = ownerItems[0];
             const ownerItem2 = ownerItems[1];
-
-            if (isScore1Dash) {
-                resetBackgroundColor(ownerItem1);
-            }
-            if (isScore2Dash) {
-                resetBackgroundColor(ownerItem2);
-            }
-
             if (difference < 0) {
-                if (!isScore1Dash) {
                     ownerItem1.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
-                }
-                if (!isScore2Dash) {
                     ownerItem2.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
-                }
             } else if (difference > 0) {
-                if (!isScore1Dash) {
                     ownerItem1.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
-                }
-                if (!isScore2Dash) {
                     ownerItem2.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
-                }
             } else {  // tie
-                if (!isScore1Dash) {
                     ownerItem1.style.backgroundColor = 'rgba(255, 255, 0, 0.15)';
-                }
-                if (!isScore2Dash) {
                     ownerItem2.style.backgroundColor = 'rgba(255, 255, 0, 0.15)';
                 }
             }
-        }
+        
 
-        clearInterval(interval);
     } else if (retryCount >= maxRetries) {
         console.log('Max retries reached, giving up...');
-        clearInterval(interval);
     } else {
         console.log('Could not find the scores, retrying...');
         retryCount++;
