@@ -20,7 +20,7 @@ This extension calculates the difference between your score and your opponents, 
 
 # Usage
 The extension is enabled on links that follow:
-sleeper.com/leagues*
+sleeper.com*
 
 # Disclaimer
 Please note that this extension is independently developed and maintained by Connor Saunders. It is not officially associated with, endorsed by, or directly affiliated with Sleeper.
