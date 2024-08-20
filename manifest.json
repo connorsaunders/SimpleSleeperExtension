@@ -5,15 +5,15 @@
   "description": "Sleeper Fantasy Extension",
   "action": {
     "default_icon": {
-      "16": "screenshots/SleeperLogo.png",
-      "48": "screenshots/SleeperLogo.png",
-      "128": "screenshots/SleeperLogo.png"
+      "16": "screenshots/sleeper-logo.png",
+      "48": "screenshots/sleeper-logo.png",
+      "128": "screenshots/sleeper-logo.png"
     }
   },
   "icons": {
-    "16": "screenshots/SleeperLogo.png",
-    "48": "screenshots/SleeperLogo.png",
-    "128": "screenshots/SleeperLogo.png"
+    "16": "screenshots/sleeper-logo.png",
+    "48": "screenshots/sleeper-logo.png",
+    "128": "screenshots/sleeper-logo.png"
   },
   "content_scripts": [
     {
