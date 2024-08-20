@@ -7,7 +7,7 @@ window.addEventListener("load", function () {
         observer.disconnect();
 
         mutations.forEach(function (mutation) {
-            checkScores();
+            main();
         });
         observeDOM();
     });
@@ -22,34 +22,16 @@ window.addEventListener("load", function () {
     observeDOM();
 });
 
-// Background color changes
-const style = document.createElement('style');
-style.textContent = `
-    .in-game {
-        background-color: transparent !important;
-    }
-    .in-game-flip {
-        background-color: transparent !important;
-    }
-`;
+// Main functionality:
+function main() {
 
-document.head.appendChild(style);
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-document.head.appendChild(styleSheet);
-
-// Check scores function
-function checkScores() {
     // Fetch both users (opponent and yourself)
-    const users = document.querySelectorAll(".matchup-row .user");
-
     // Fetch both scores for users (2 divs)
-    const scores = document.querySelectorAll(".matchup-row .user .score");
-
     // Fetch all players sections (opponent and your players grouped by position)
-    const allPlayers = document.querySelector(".player-section"); 
-    
     // Filter above by scores only
+    const users = document.querySelectorAll(".matchup-row .user");
+    const scores = document.querySelectorAll(".matchup-row .user .score");
+    const allPlayers = document.querySelector(".player-section"); 
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
 
     colorPlayers(allPlayersScores);
