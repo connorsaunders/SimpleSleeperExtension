@@ -3,9 +3,6 @@
   "name": "Sleeper.com Matchup Extension",
   "version": "1.0",
   "description": "Sleeper Fantasy Extension",
-  "background": {
-    "service_worker": "src/background.js"
-  },
   "action": {
     "default_icon": {
       "16": "screenshots/SleeperLogo.png",

@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'production', // Use 'production' mode to avoid eval in source maps
   devtool: 'source-map', // Ensure source maps are properly configured
-  entry: './src/contentScript.js',
+  entry: './src/content-script.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
