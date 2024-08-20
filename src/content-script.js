@@ -32,8 +32,7 @@ function main() {
     const users = document.querySelectorAll(".matchup-row .user");
     const scores = document.querySelectorAll(".matchup-row .user .score");
     const allPlayers = document.querySelector(".player-section"); 
-    const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
 
-    colorPlayers(allPlayersScores);
+    colorPlayers(allPlayers);
     displayScoreDifference(users, scores);
 }

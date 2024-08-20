@@ -1,6 +1,9 @@
 // utils/colorPlayers.js
 
-export function colorPlayers(allPlayersScores) {
+export function colorPlayers(allPlayers) {
+
+    const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
+
     console.log('colorPlayers function is running');
 
     // Declare max difference of 2
