@@ -1,14 +1,11 @@
 {
   "manifest_version": 3,
-
   "name": "Sleeper.com Matchup Extension",
   "version": "1.0",
   "description": "Sleeper Fantasy Extension",
-
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background.js"
   },
-
   "action": {
     "default_icon": {
       "16": "screenshots/SleeperLogo.png",
@@ -16,17 +13,15 @@
       "128": "screenshots/SleeperLogo.png"
     }
   },
-  
   "icons": {
     "16": "screenshots/SleeperLogo.png",
     "48": "screenshots/SleeperLogo.png",
     "128": "screenshots/SleeperLogo.png"
   },
-
   "content_scripts": [
     {
       "matches": ["https://sleeper.com/*"],
-      "js": ["contentScript.js"],
+      "js": ["dist/bundle.js"],
       "run_at": "document_idle"
     }
   ]
