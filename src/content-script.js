@@ -1,4 +1,4 @@
-import { colorPlayers } from "../utils/colorPlayers";
+import { colorPlayers } from "../utils/color-players";
 
 // Mutation Observer
 window.addEventListener("load", function () {
