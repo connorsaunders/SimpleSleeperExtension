@@ -1,5 +1,3 @@
-// utils/colorPlayers.js
-
 export function colorPlayers(allPlayers) {
 
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
@@ -42,8 +40,19 @@ export function colorPlayers(allPlayers) {
             playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
             playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
         } else {
-            playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + .05})`;
-            playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + .05})`;
+            playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+            playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
         }
+
+        // // Create and insert "Here" element below each player item
+        // const hereElement1 = document.createElement('div');
+        // hereElement1.textContent = 'Here';
+        // hereElement1.className = 'color-label'; // Optional: Add a class for styling
+        // playerItem1.appendChild(hereElement1);
+
+        // const hereElement2 = document.createElement('div');
+        // hereElement2.textContent = 'Here';
+        // hereElement2.className = 'color-label'; // Optional: Add a class for styling
+        // playerItem2.appendChild(hereElement2);
     }
 }
