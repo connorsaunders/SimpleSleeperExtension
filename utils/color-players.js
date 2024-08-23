@@ -24,8 +24,8 @@ export function colorPlayers(allPlayers) {
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
 
-        const difference = Math.abs(score1 - score2);
-        const intensity = difference / maxDifference * 0.15 + 0.05;
+        const difference = score1 - score2;
+        const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;        
 
         const playerItem1 = score1Element.closest('.matchup-player-item');
         const playerItem2 = score2Element.closest('.matchup-player-item');
