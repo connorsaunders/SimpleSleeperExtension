@@ -23,16 +23,22 @@ window.addEventListener("load", function () {
 });
 
 // Main functionality:
+let oldPlayers = null; // Store the previous state globally
+
 function main() {
+    // Fetch the current players section
+    const allPlayers = document.querySelector(".player-section");
 
-    // Fetch both users (opponent and yourself)
-    // Fetch both scores for users (2 divs)
-    // Fetch all players sections (opponent and your players grouped by position)
-    // Filter above by scores only
-    const users = document.querySelectorAll(".matchup-row .user");
-    const scores = document.querySelectorAll(".matchup-row .user .score");
-    const allPlayers = document.querySelector(".player-section"); 
+    // Ensure that `allPlayers` exists and has changed since the last call
+    if (allPlayers && oldPlayers !== allPlayers.innerHTML) {
+        const users = document.querySelectorAll(".matchup-row .user");
+        const scores = document.querySelectorAll(".matchup-row .user .score");
 
-    colorPlayers(allPlayers);
-    displayScoreDifference(users, scores);
+        // Apply the custom color formatting and score difference display
+        colorPlayers(allPlayers);
+        displayScoreDifference(users, scores);
+
+        // Update the oldPlayers state to the current one
+        oldPlayers = allPlayers.innerHTML;
+    }
 }
