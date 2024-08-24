@@ -1,9 +1,5 @@
 export function colorPlayers(allPlayers) {
-
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
-
-    console.log('colorPlayers function is running');
-
     // Declare max difference of 2
     let maxDifference = 0;
 
@@ -18,14 +14,18 @@ export function colorPlayers(allPlayers) {
     for (let i = 0; i < allPlayersScores.length; i += 2) {
         const score1Element = allPlayersScores[i];
         const score2Element = allPlayersScores[i + 1];
+        console.log("Score 1:", score1Element);
+        console.log("Score 2:", score2Element);
 
+        if (!score2Element) continue; // Skip if the second score is undefined
+    
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
-
-        const difference = score1 - score2;
-        const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;        
+    
+        const difference = parseFloat((score1 - score2).toFixed(2));
+        const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
 
         const playerItem1 = score1Element.closest('.matchup-player-item');
         const playerItem2 = score2Element.closest('.matchup-player-item');
@@ -44,15 +44,38 @@ export function colorPlayers(allPlayers) {
             playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
         }
 
-        // // Create and insert "Here" element below each player item
-        // const hereElement1 = document.createElement('div');
-        // hereElement1.textContent = 'Here';
-        // hereElement1.className = 'color-label'; // Optional: Add a class for styling
-        // playerItem1.appendChild(hereElement1);
+        console.log("DIFFERENCE: ", difference);
 
-        // const hereElement2 = document.createElement('div');
-        // hereElement2.textContent = 'Here';
-        // hereElement2.className = 'color-label'; // Optional: Add a class for styling
-        // playerItem2.appendChild(hereElement2);
+        // Generate unique IDs based on the index
+        const uniqueId1 = `difference-${i}`;
+        const uniqueId2 = `difference-${i + 1}`;
+
+        // Find or create the difference element for score1
+        let differenceElement1 = document.querySelector(`#${uniqueId1}`);
+        if (!differenceElement1) {
+            differenceElement1 = document.createElement('div');
+            differenceElement1.id = uniqueId1;
+            differenceElement1.className = 'score-difference-added'; // Optional: Add a class for styling
+            differenceElement1.style.fontSize = '9px';
+            differenceElement1.style.textAlign = 'center';
+            differenceElement1.style.marginTop = '3px';
+            score1Element.parentNode.insertBefore(differenceElement1, score1Element.nextSibling);
+        }
+        // Update text content of the existing or newly created element
+        differenceElement1.textContent = difference >= 0 ? `+${difference}` : difference;
+
+        // Find or create the difference element for score2
+        let differenceElement2 = document.querySelector(`#${uniqueId2}`);
+        if (!differenceElement2) {
+            differenceElement2 = document.createElement('div');
+            differenceElement2.id = uniqueId2;
+            differenceElement2.className = 'score-difference-added'; // Optional: Add a class for styling
+            differenceElement2.style.fontSize = '9px';
+            differenceElement2.style.textAlign = 'center';
+            differenceElement2.style.marginTop = '3px';
+            score2Element.parentNode.insertBefore(differenceElement2, score2Element.nextSibling);
+        }
+        // Update text content of the existing or newly created element
+        differenceElement2.textContent = difference < 0 ? `-${Math.abs(difference)}` : `-${difference}`;
     }
 }

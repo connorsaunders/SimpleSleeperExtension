@@ -1,6 +1,8 @@
 // src/scoreDifference.js
 
 export function displayScoreDifference(users, scores) {
+    console.log('displayScoreDifference function is running');
+
     let retryCount = 0;
     const maxRetries = 1;
 
