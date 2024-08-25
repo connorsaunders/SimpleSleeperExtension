@@ -27,11 +27,10 @@ export function colorPlayers(allPlayers) {
         const difference = parseFloat((score1 - score2).toFixed(2));
         const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
 
-        const playerItem1 = score1Element.closest('.matchup-player-item');
-        const playerItem2 = score2Element.closest('.matchup-player-item');
-
-        playerItem1.style.borderRadius = '8px';
-        playerItem2.style.borderRadius = '8px';
+        const playerItem1 = score1Element.closest('.matchup-player-item'),
+              playerItem2 = score2Element.closest('.matchup-player-item');
+  
+        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
 
         if (score1 < score2) {
             playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
