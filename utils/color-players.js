@@ -14,8 +14,8 @@ export function colorPlayers(allPlayers) {
     for (let i = 0; i < allPlayersScores.length; i += 2) {
         const score1Element = allPlayersScores[i];
         const score2Element = allPlayersScores[i + 1];
-        console.log("Score 1:", score1Element);
-        console.log("Score 2:", score2Element);
+        // console.log("Score 1:", score1Element);
+        // console.log("Score 2:", score2Element);
 
         if (!score2Element) continue; // Skip if the second score is undefined
     
@@ -45,11 +45,23 @@ export function colorPlayers(allPlayers) {
         }
 
         console.log("DIFFERENCE: ", difference);
-
-        // Generate unique IDs based on the index
+        function formatDifference(difference) {
+            // Ensure difference has two decimal places
+            let formattedDifference = difference.toFixed(2);
+        
+            // Add .00 or .x0 if needed
+            if (!formattedDifference.includes('.')) {
+                formattedDifference += '.00';
+            } else if (formattedDifference.split('.')[1].length === 1) {
+                formattedDifference += '0';
+            }
+        
+            return formattedDifference;
+        }
+        
         const uniqueId1 = `difference-${i}`;
         const uniqueId2 = `difference-${i + 1}`;
-
+        
         // Find or create the difference element for score1
         let differenceElement1 = document.querySelector(`#${uniqueId1}`);
         if (!differenceElement1) {
@@ -62,9 +74,9 @@ export function colorPlayers(allPlayers) {
             score1Element.parentNode.insertBefore(differenceElement1, score1Element.nextSibling);
         }
         // Update text content of the existing or newly created element
-        differenceElement1.textContent = difference >= 0 ? `+${difference}` : difference;
-        differenceElement1.style.color = difference >= 0 ? 'rgb(4,204,188)' : (difference < 0 ? 'rgb(251,44,107)' : 'yellow');
-
+        differenceElement1.textContent = difference >= 0 ? `+${formatDifference(difference)}` : formatDifference(difference);
+        differenceElement1.style.color = difference > 0 ? 'rgb(4,204,188)' : (difference < 0 ? 'rgb(251,44,107)' : 'yellow');
+        
         // Find or create the difference element for score2
         let differenceElement2 = document.querySelector(`#${uniqueId2}`);
         if (!differenceElement2) {
@@ -77,8 +89,7 @@ export function colorPlayers(allPlayers) {
             score2Element.parentNode.insertBefore(differenceElement2, score2Element.nextSibling);
         }
         // Update text content of the existing or newly created element
-        differenceElement2.textContent = difference < 0 ? `-${Math.abs(difference)}` : `-${difference}`;
-        differenceElement2.style.color = difference <= 0 ? 'rgb(4,204,188)' : (difference > 0 ? 'rgb(251,44,107)' : 'yellow');
-
-    }
+        differenceElement2.textContent = difference >= 0 ? `-${formatDifference(difference)}` : formatDifference(difference);
+        differenceElement2.style.color = difference < 0 ? 'rgb(4,204,188)' : (difference > 0 ? 'rgb(251,44,107)' : 'yellow');
+    }        
 }
