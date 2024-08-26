@@ -1,19 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Sleeper.com Matchup Extension",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Sleeper Fantasy Extension",
   "action": {
     "default_icon": {
-      "16": "screenshots/sleeper-logo.png",
-      "48": "screenshots/sleeper-logo.png",
-      "128": "screenshots/sleeper-logo.png"
+      "16": "screenshots/sleeper-vision.png",
+      "48": "screenshots/sleeper-vision.png",
+      "128": "screenshots/sleeper-vision.png"
     }
   },
   "icons": {
-    "16": "screenshots/sleeper-logo.png",
-    "48": "screenshots/sleeper-logo.png",
-    "128": "screenshots/sleeper-logo.png"
+    "16": "screenshots/sleeper-vision.png",
+    "48": "screenshots/sleeper-vision.png",
+    "128": "screenshots/sleeper-vision.png"
   },
   "content_scripts": [
     {

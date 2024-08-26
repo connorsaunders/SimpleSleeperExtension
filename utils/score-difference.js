@@ -47,7 +47,7 @@ export function displayScoreDifference(users, scores) {
             differenceElement.textContent = displayText;
             differenceElement.style.padding = '10px';
             differenceElement.style.textAlign = 'center';
-            differenceElement.style.backgroundColor = difference < 0 ? 'rgba(255, 0, 0, 0.15)' : (difference === 0 ? 'rgba(255, 255, 0, 0.15)' : 'rgba(0, 128, 0, 0.15)');
+            differenceElement.style.backgroundColor = difference < 0 ? 'rgba(255, 0, 0, 0.15)' : (difference === 0 ? 'rgba(64, 64, 64, 0.15)' : 'rgba(0, 128, 0, 0.15)');
             differenceElement.style.fontSize = '16px';
             differenceElement.style.marginTop = '0px';
             differenceElement.style.marginBottom = '10px';
@@ -71,8 +71,8 @@ export function displayScoreDifference(users, scores) {
                     ownerItem1.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
                     ownerItem2.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
                 } else {  // tie
-                    ownerItem1.style.backgroundColor = 'rgba(255, 255, 0, 0.15)';
-                    ownerItem2.style.backgroundColor = 'rgba(255, 255, 0, 0.15)';
+                    ownerItem1.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
+                    ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';                                    
                 }
             }
         } else if (retryCount >= maxRetries) {

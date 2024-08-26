@@ -74,7 +74,7 @@ export function colorPlayers(allPlayers) {
         }
         // Update text content of the existing or newly created element
         differenceElement1.textContent = difference >= 0 ? `+${formatDifference(difference)}` : formatDifference(difference);
-        differenceElement1.style.color = difference > 0 ? 'rgb(4,204,188)' : (difference < 0 ? 'rgb(251,44,107)' : 'yellow');
+        differenceElement1.style.color = difference > 0 ? 'rgb(4,204,188)' : (difference < 0 ? 'rgb(251,44,107)' : 'white');
         
         // Find or create the difference element for score2
         let differenceElement2 = document.querySelector(`#${uniqueId2}`);
@@ -89,6 +89,6 @@ export function colorPlayers(allPlayers) {
         }
         // Update text content of the existing or newly created element
         differenceElement2.textContent = difference >= 0 ? `-${formatDifference(difference)}` : formatDifference(difference);
-        differenceElement2.style.color = difference < 0 ? 'rgb(4,204,188)' : (difference > 0 ? 'rgb(251,44,107)' : 'yellow');
+        differenceElement2.style.color = difference < 0 ? 'rgb(4,204,188)' : (difference > 0 ? 'rgb(251,44,107)' : 'white');
     }        
 }
