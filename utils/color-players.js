@@ -73,7 +73,7 @@ export function colorPlayers(allPlayers) {
             score1Element.parentNode.insertBefore(differenceElement1, score1Element.nextSibling);
         }
         // Update text content of the existing or newly created element
-        differenceElement1.textContent = difference >= 0 ? `+${formatDifference(difference)}` : formatDifference(difference);
+        differenceElement1.textContent = difference > 0 ? `+${formatDifference(difference)}` : formatDifference(difference);
         differenceElement1.style.color = difference > 0 ? 'rgb(4,204,188)' : (difference < 0 ? 'rgb(251,44,107)' : 'white');
 
         // Find or create the difference element for score2
