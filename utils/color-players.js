@@ -33,6 +33,8 @@ export function colorPlayers(allPlayers) {
         const playerItem1 = score1Element.closest('.matchup-player-item'),
               playerItem2 = score2Element.closest('.matchup-player-item');
 
+        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
+        
         if (score1 < score2) {
             playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
             playerItem2.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
