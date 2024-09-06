@@ -2,11 +2,13 @@ export function colorPlayers(allPlayers) {
     // Reset the colors of in-game items
     resetInGameItemColors();
 
+    // Grab all players scores
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
-    // Declare max difference of 2
+    
+    // Declare max difference to 0
     let maxDifference = 0;
 
-    // Calculate the max difference between any 2 players of the same position
+    // Calculate the max difference between any 2 players of the same position (for conditional formatting)
     for (let i = 0; i < allPlayersScores.length; i += 2) {
         const score1 = parseFloat(allPlayersScores[i].textContent.trim()) || 0;
         const score2 = parseFloat(allPlayersScores[i + 1].textContent.trim()) || 0;
@@ -20,29 +22,45 @@ export function colorPlayers(allPlayers) {
 
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
+
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
 
         const difference = parseFloat((score1 - score2).toFixed(2));
         const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
 
-        const playerItem1 = score1Element.closest('.matchup-player-item'),
-              playerItem2 = score2Element.closest('.matchup-player-item');
+        const playerItem1 = score1Element.closest('.matchup-player-item');
+        const playerItem2 = score2Element.closest('.matchup-player-item');
 
         playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
 
+
         if (score1 < score2) {
-            playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
-            playerItem2.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+            // Color based on comparison, if not a dash
+            if (!isScore1Dash) {
+                playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+            }
+            if (!isScore2Dash) {
+                playerItem2.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+            }
         } else if (score1 > score2) {
-            playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
-            playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+            // Color based on comparison, if not a dash
+            if (!isScore1Dash) {
+                playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
+            }
+            if (!isScore2Dash) {
+                playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
+            }
+        } else {
+            // Both scores are equal
+            if (!isScore1Dash) {
+                playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+            }
+            if (!isScore2Dash) {
+                playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+            }
         }
-        // TIES (not playing)
-        // } else if (score1 === 0 || score2 === 0){
-        //     playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
-        //     playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
-        // }
+
 
         console.log("DIFFERENCE: ", difference);
         function formatDifference(difference) {
