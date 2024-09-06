@@ -101,19 +101,19 @@ export function colorPlayers(allPlayers) {
 }
 
 function resetInGameItemColors() {
-    const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip");
+    const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
 
     inGameItems.forEach(item => {
         // Reset styles of the main element
-        item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)'; // White with .05% opacity
-        //item.style.color = ''; // Reset color
+        item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)'; // White with 4% opacity
 
-        // Reset styles of child elements
-        const allChildren = item.querySelectorAll("*");
+        // Reset styles of child elements (if needed)
+        // Uncomment and customize these lines if you want to reset styles of child elements as well
+        // const allChildren = item.querySelectorAll("*");
         // allChildren.forEach(child => {
-        //     //child.style.backgroundColor = 'transparent'; // Reset background color of child elements
-        //     //child.style.color = ''; // Reset text color
-        //     //child.style.border = ''; // Reset any borders
+        //     child.style.backgroundColor = 'rgba(255, 255, 255, 0.04)'; // White with 4% opacity for child elements
+        //     child.style.color = ''; // Reset text color
+        //     child.style.border = ''; // Reset any borders
         // });
     });
 }
