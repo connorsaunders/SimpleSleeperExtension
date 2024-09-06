@@ -20,7 +20,7 @@ export function colorPlayers(allPlayers) {
         // console.log("Score 1:", score1Element);
         // console.log("Score 2:", score2Element);
 
-        if (!score2Element) continue; // Skip if the second score is undefined
+        //if (!score2Element) continue; // Skip if the second score is undefined
 
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
@@ -34,7 +34,7 @@ export function colorPlayers(allPlayers) {
               playerItem2 = score2Element.closest('.matchup-player-item');
 
         playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
-        
+
         if (score1 < score2) {
             playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
             playerItem2.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
@@ -105,15 +105,15 @@ function resetInGameItemColors() {
 
     inGameItems.forEach(item => {
         // Reset styles of the main element
-        item.style.backgroundColor = 'transparent'; // Set background to transparent
-        item.style.color = ''; // Reset color
+        item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)'; // White with .05% opacity
+        //item.style.color = ''; // Reset color
 
         // Reset styles of child elements
         const allChildren = item.querySelectorAll("*");
-        allChildren.forEach(child => {
-            child.style.backgroundColor = 'transparent'; // Reset background color of child elements
-            child.style.color = ''; // Reset text color
-            child.style.border = ''; // Reset any borders
-        });
+        // allChildren.forEach(child => {
+        //     //child.style.backgroundColor = 'transparent'; // Reset background color of child elements
+        //     //child.style.color = ''; // Reset text color
+        //     //child.style.border = ''; // Reset any borders
+        // });
     });
 }
