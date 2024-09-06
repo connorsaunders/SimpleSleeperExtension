@@ -17,10 +17,6 @@ export function colorPlayers(allPlayers) {
     for (let i = 0; i < allPlayersScores.length; i += 2) {
         const score1Element = allPlayersScores[i];
         const score2Element = allPlayersScores[i + 1];
-        // console.log("Score 1:", score1Element);
-        // console.log("Score 2:", score2Element);
-
-        //if (!score2Element) continue; // Skip if the second score is undefined
 
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
@@ -42,6 +38,7 @@ export function colorPlayers(allPlayers) {
             playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
             playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
         }
+        // TIES (not playing)
         // } else if (score1 === 0 || score2 === 0){
         //     playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
         //     playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
@@ -107,13 +104,5 @@ function resetInGameItemColors() {
         // Reset styles of the main element
         item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)'; // White with 4% opacity
 
-        // Reset styles of child elements (if needed)
-        // Uncomment and customize these lines if you want to reset styles of child elements as well
-        // const allChildren = item.querySelectorAll("*");
-        // allChildren.forEach(child => {
-        //     child.style.backgroundColor = 'rgba(255, 255, 255, 0.04)'; // White with 4% opacity for child elements
-        //     child.style.color = ''; // Reset text color
-        //     child.style.border = ''; // Reset any borders
-        // });
     });
 }
