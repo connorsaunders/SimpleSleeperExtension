@@ -1,4 +1,7 @@
 export function colorPlayers(allPlayers) {
+    // Reset the colors of in-game items
+    resetInGameItemColors();
+
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
     // Declare max difference of 2
     let maxDifference = 0;
@@ -18,19 +21,17 @@ export function colorPlayers(allPlayers) {
         // console.log("Score 2:", score2Element);
 
         if (!score2Element) continue; // Skip if the second score is undefined
-    
+
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
-    
+
         const difference = parseFloat((score1 - score2).toFixed(2));
         const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
 
         const playerItem1 = score1Element.closest('.matchup-player-item'),
               playerItem2 = score2Element.closest('.matchup-player-item');
-  
-        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
 
         if (score1 < score2) {
             playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
@@ -38,29 +39,30 @@ export function colorPlayers(allPlayers) {
         } else if (score1 > score2) {
             playerItem1.style.backgroundColor = `rgba(0, 128, 0, ${intensity})`;
             playerItem2.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
-        } else {
-            playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
-            playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
         }
+        // } else if (score1 === 0 || score2 === 0){
+        //     playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+        //     playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+        // }
 
         console.log("DIFFERENCE: ", difference);
         function formatDifference(difference) {
             // Ensure difference has two decimal places
             let formattedDifference = difference.toFixed(2);
-        
+
             // Add .00 or .x0 if needed
             if (!formattedDifference.includes('.')) {
                 formattedDifference += '.00';
             } else if (formattedDifference.split('.')[1].length === 1) {
                 formattedDifference += '0';
             }
-        
+
             return formattedDifference;
         }
-        
+
         const uniqueId1 = `difference-${i}`;
         const uniqueId2 = `difference-${i + 1}`;
-        
+
         // Find or create the difference element for score1
         let differenceElement1 = document.querySelector(`#${uniqueId1}`);
         if (!differenceElement1) {
@@ -93,6 +95,23 @@ export function colorPlayers(allPlayers) {
         // Update text content of the existing or newly created element
         differenceElement2.textContent = differenceScore2 > 0 ? `+${formatDifference(differenceScore2)}` : formatDifference(differenceScore2);
         differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : (differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white');
+    }
+}
 
-    }        
+function resetInGameItemColors() {
+    const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip");
+
+    inGameItems.forEach(item => {
+        // Reset styles of the main element
+        item.style.backgroundColor = 'transparent'; // Set background to transparent
+        item.style.color = ''; // Reset color
+
+        // Reset styles of child elements
+        const allChildren = item.querySelectorAll("*");
+        allChildren.forEach(child => {
+            child.style.backgroundColor = 'transparent'; // Reset background color of child elements
+            child.style.color = ''; // Reset text color
+            child.style.border = ''; // Reset any borders
+        });
+    });
 }
