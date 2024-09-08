@@ -54,10 +54,10 @@ export function colorPlayers(allPlayers) {
         } else {
             // Both scores are equal
             if (!isScore1Dash) {
-                playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+                playerItem1.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.01})`;
             }
             if (!isScore2Dash) {
-                playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.05})`;
+                playerItem2.style.backgroundColor = `rgba(255, 255, 0, ${intensity + 0.01})`;
             }
         }
 
