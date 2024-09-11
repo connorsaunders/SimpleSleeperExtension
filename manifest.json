@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Sleeper.com Matchup Extension",
-  "version": "1.52",
+  "version": "1.6",
   "description": "Sleeper Fantasy Extension",
   "action": {
     "default_icon": {

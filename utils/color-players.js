@@ -25,7 +25,12 @@ export function colorPlayers(allPlayers) {
 
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
-
+        // Reset colors if both scores are dashes
+        if (isScore1Dash && isScore2Dash) {
+            score1Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+            score2Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+            continue; // Skip further processing if both are dashes
+        }
         const difference = parseFloat((score1 - score2).toFixed(2));
         const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
 
@@ -33,7 +38,6 @@ export function colorPlayers(allPlayers) {
         const playerItem2 = score2Element.closest('.matchup-player-item');
 
         playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
-
 
         if (score1 < score2) {
             // Color based on comparison, if not a dash
@@ -61,8 +65,8 @@ export function colorPlayers(allPlayers) {
             }
         }
 
-
         console.log("DIFFERENCE: ", difference);
+
         function formatDifference(difference) {
             // Ensure difference has two decimal places
             let formattedDifference = difference.toFixed(2);
