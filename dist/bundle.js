@@ -133,6 +133,29 @@ function resetInGameItemColors() {
 
 /***/ }),
 
+/***/ "./utils/resize-scores.js":
+/*!********************************!*\
+  !*** ./utils/resize-scores.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resizeScoreElement: () => (/* binding */ resizeScoreElement)
+/* harmony export */ });
+function resizeScoreElement() {
+  // Select all score elements within the class `.roster-score-and-projection-matchup`
+  const scoreElements = document.querySelectorAll(".roster-score-and-projection-matchup .score");
+
+  // Loop through all the matching elements and apply the styles
+  scoreElements.forEach(scoreElement => {
+    scoreElement.style.fontSize = "22px"; // Adjust the size as needed
+    scoreElement.style.fontWeight = "normal"; // Unbold the text by setting it to "normal"
+  });
+}
+
+/***/ }),
+
 /***/ "./utils/score-difference.js":
 /*!***********************************!*\
   !*** ./utils/score-difference.js ***!
@@ -295,6 +318,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_color_players__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/color-players */ "./utils/color-players.js");
 /* harmony import */ var _utils_score_difference__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/score-difference */ "./utils/score-difference.js");
+/* harmony import */ var _utils_resize_scores__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/resize-scores */ "./utils/resize-scores.js");
+
 
 
 
@@ -324,7 +349,7 @@ function main() {
   // Fetch the current players section
   const allPlayers = document.querySelector(".player-section");
 
-  // Ensure that `allPlayers` exists and has changed since the last call
+  // Ensure that `allPlayers` exists and has changed since the last call 
   if (allPlayers && oldPlayers !== allPlayers.innerHTML) {
     const users = document.querySelectorAll(".matchup-row .user");
     const scores = document.querySelectorAll(".matchup-row .user .score");
@@ -332,6 +357,7 @@ function main() {
     // Apply the custom color formatting and score difference display
     (0,_utils_color_players__WEBPACK_IMPORTED_MODULE_0__.colorPlayers)(allPlayers);
     (0,_utils_score_difference__WEBPACK_IMPORTED_MODULE_1__.displayScoreDifference)(users, scores);
+    (0,_utils_resize_scores__WEBPACK_IMPORTED_MODULE_2__.resizeScoreElement)(); // Call the imported resize function
 
     // Update the oldPlayers state to the current one
     oldPlayers = allPlayers.innerHTML;

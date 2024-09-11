@@ -1,5 +1,6 @@
 import { colorPlayers } from "../utils/color-players";
 import { displayScoreDifference } from "../utils/score-difference";
+import { resizeScoreElement } from "../utils/resize-scores"; 
 
 // Mutation Observer
 window.addEventListener("load", function () {
@@ -29,7 +30,7 @@ function main() {
     // Fetch the current players section
     const allPlayers = document.querySelector(".player-section");
 
-    // Ensure that `allPlayers` exists and has changed since the last call
+    // Ensure that `allPlayers` exists and has changed since the last call 
     if (allPlayers && oldPlayers !== allPlayers.innerHTML) {
         const users = document.querySelectorAll(".matchup-row .user");
         const scores = document.querySelectorAll(".matchup-row .user .score");
@@ -37,6 +38,7 @@ function main() {
         // Apply the custom color formatting and score difference display
         colorPlayers(allPlayers);
         displayScoreDifference(users, scores);
+        resizeScoreElement(); // Call the imported resize function
 
         // Update the oldPlayers state to the current one
         oldPlayers = allPlayers.innerHTML;
