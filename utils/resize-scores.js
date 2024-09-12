@@ -4,7 +4,7 @@ export function resizeScoreElement() {
     
     // Loop through all the matching elements and apply the styles
     scoreElements.forEach(scoreElement => {
-        scoreElement.style.fontSize = "22px";      // Adjust the size as needed
+        scoreElement.style.fontSize = "18px";      // Adjust the size as needed
         scoreElement.style.fontWeight = "normal";  // Unbold the text by setting it to "normal"
     });
 }
