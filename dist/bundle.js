@@ -258,7 +258,7 @@ function displayScoreDifference(users, scores) {
           ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
         }
       }
-      // Potential refactor:
+      // Potential refactor/remove:
     } else if (retryCount >= maxRetries) {
       console.log('Max retries reached, giving up...');
     } else {
