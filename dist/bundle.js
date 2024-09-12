@@ -12,14 +12,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   colorPlayers: () => (/* binding */ colorPlayers)
 /* harmony export */ });
-function colorPlayers(allPlayers) {
-  // Reset the colors and difference elements of in-game items
-  resetInGameItemColors();
+////////////////////////////////////////////////////////////////////////////
+// Add heatmap to players 
+////////////////////////////////////////////////////////////////////////////
 
-  // Grab all players scores
+function colorPlayers(allPlayers) {
+  ////////////////////////////////////////////////////////////////////////////
+  // Reset in-game color scheme and individual player score differences
+  ////////////////////////////////////////////////////////////////////////////
+  resetInGameItemColors();
+  resetScoreDifference();
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Grab all players scores:
+  ////////////////////////////////////////////////////////////////////////////
   const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
 
-  // Declare max difference to 0
+  ////////////////////////////////////////////////////////////////////////////
+  // Declare max difference for any 2 starters
+  ////////////////////////////////////////////////////////////////////////////
   let maxDifference = 0;
 
   // Calculate the max difference between any 2 players of the same position (for conditional formatting)
@@ -29,7 +40,9 @@ function colorPlayers(allPlayers) {
     maxDifference = Math.max(maxDifference, Math.abs(score1 - score2));
   }
 
-  // Iterate through each player score and apply colors
+  ////////////////////////////////////////////////////////////////////////////
+  // Iterate through players and add conditionally formatted colors + differences
+  ////////////////////////////////////////////////////////////////////////////
   for (let i = 0; i < allPlayersScores.length; i += 2) {
     const score1Element = allPlayersScores[i];
     const score2Element = allPlayersScores[i + 1];
@@ -54,13 +67,21 @@ function colorPlayers(allPlayers) {
         differenceElement2.textContent = "0.00";
         differenceElement2.style.color = 'white';
       }
-      continue; // Skip further processing if both are dashes
+      continue;
     }
     const difference = parseFloat((score1 - score2).toFixed(2));
     const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
     const playerItem1 = score1Element.closest('.matchup-player-item');
     const playerItem2 = score2Element.closest('.matchup-player-item');
-    playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
+    playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+
+    // Load the CSS file
+    // loadStylesheet('css/playing.css');
+
+    // // Apply the CSS class for animated border and glowing effect
+    // playerItem1.classList.add('player-item');
+    // playerItem2.classList.add('player-item');
+
     if (score1 < score2) {
       if (!isScore1Dash) {
         playerItem1.style.backgroundColor = `rgba(255, 0, 0, ${intensity})`;
@@ -112,13 +133,23 @@ function colorPlayers(allPlayers) {
     differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white';
   }
 }
+function loadStylesheet(href) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = chrome.runtime.getURL(href);
+  document.head.appendChild(link);
+}
 function resetInGameItemColors() {
   const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
   inGameItems.forEach(item => {
     // Reset styles of the main element
     item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+    item.style.boxShadow = ''; // Reset box-shadow if needed
+    item.classList.remove('player-item'); // Remove the class if it's no longer needed
   });
-
+}
+function resetScoreDifference() {
   // Reset difference elements
   const differenceElements = document.querySelectorAll('.score-difference-added');
   differenceElements.forEach(diffElem => {
@@ -230,6 +261,8 @@ function displayScoreDifference(users, scores) {
       differenceElement.style.marginTop = '0px';
       differenceElement.style.marginBottom = '10px';
       differenceElement.style.borderRadius = '8px';
+      //differenceElement.style.outline = difference < 0 ? '2px solid rgba(0, 0, 0, 0.4)' : (difference === 0 ? '2px solid rgba(0, 0, 0, 0.4)' : '2px solid rgba(0, 0, 0, 0.4)');
+      differenceElement.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)';
 
       ////////////////////////////////////////////////////////////////////////////
       // Insert element:
@@ -246,9 +279,13 @@ function displayScoreDifference(users, scores) {
       if (ownerItems.length === 2) {
         const ownerItem1 = ownerItems[0];
         const ownerItem2 = ownerItems[1];
+        ownerItem1.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)';
+        ownerItem2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)';
         if (difference < 0) {
           ownerItem1.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
           ownerItem2.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
+          // ownerItem1.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+          // ownerItem2.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
         } else if (difference > 0) {
           ownerItem1.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
           ownerItem2.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
@@ -256,6 +293,8 @@ function displayScoreDifference(users, scores) {
           // tie
           ownerItem1.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
           ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
+          // ownerItem1.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+          // ownerItem2.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)';                                 
         }
       }
       // Potential refactor/remove:

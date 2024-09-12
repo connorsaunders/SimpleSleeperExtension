@@ -64,7 +64,9 @@ export function displayScoreDifference(users, scores) {
             differenceElement.style.fontSize = '16px';
             differenceElement.style.marginTop = '0px';
             differenceElement.style.marginBottom = '10px';
-            differenceElement.style.borderRadius = '8px';
+            differenceElement.style.borderRadius = '8px';   
+            //differenceElement.style.outline = difference < 0 ? '2px solid rgba(0, 0, 0, 0.4)' : (difference === 0 ? '2px solid rgba(0, 0, 0, 0.4)' : '2px solid rgba(0, 0, 0, 0.4)');
+            differenceElement.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)'
 
             ////////////////////////////////////////////////////////////////////////////
             // Insert element:
@@ -81,15 +83,24 @@ export function displayScoreDifference(users, scores) {
             if (ownerItems.length === 2) {
                 const ownerItem1 = ownerItems[0];
                 const ownerItem2 = ownerItems[1];
+                
+                ownerItem1.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)'
+                ownerItem2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)'
+
+
                 if (difference < 0) {
                     ownerItem1.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
                     ownerItem2.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
+                    // ownerItem1.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+                    // ownerItem2.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
                 } else if (difference > 0) {
                     ownerItem1.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';
                     ownerItem2.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
                 } else {  // tie
                     ownerItem1.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
-                    ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';                                    
+                    ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
+                    // ownerItem1.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)'; 
+                    // ownerItem2.style.outline = '3px 3px 5px rgba(0, 0, 0, 0.3)';                                 
                 }
             }
         // Potential refactor/remove:

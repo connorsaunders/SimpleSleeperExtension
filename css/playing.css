@@ -1,0 +1,29 @@
+@keyframes flash {
+    0% {
+        border-color: rgba(255, 255, 0, 0.5); /* Adjusted to yellow */
+    }
+    50% {
+        border-color: rgba(255, 255, 0, 1); /* Adjusted to yellow */
+    }
+    100% {
+        border-color: rgba(255, 255, 0, 0.75); /* Adjusted to yellow */
+    }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 0, 0.75); /* Narrower glow */
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(255, 255, 0, 0.75); /* Slightly wider but still narrow */
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 0, 0.75); /* Narrower glow */
+    }
+}
+
+.player-item {
+    border-radius: 8px;
+    animation: flash 2s infinite, glow 3s infinite; /* Adjusted timing for slower blink */
+    background-color: rgba(255, 255, 255, 0.04); /* Optional background color */
+}

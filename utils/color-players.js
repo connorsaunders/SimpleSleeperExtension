@@ -1,11 +1,22 @@
-export function colorPlayers(allPlayers) {
-    // Reset the colors and difference elements of in-game items
-    resetInGameItemColors();
+////////////////////////////////////////////////////////////////////////////
+// Add heatmap to players 
+////////////////////////////////////////////////////////////////////////////
 
-    // Grab all players scores
+export function colorPlayers(allPlayers) {
+    ////////////////////////////////////////////////////////////////////////////
+    // Reset in-game color scheme and individual player score differences
+    ////////////////////////////////////////////////////////////////////////////
+    resetInGameItemColors();
+    resetScoreDifference();
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // Grab all players scores:
+    ////////////////////////////////////////////////////////////////////////////
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
     
-    // Declare max difference to 0
+    ////////////////////////////////////////////////////////////////////////////
+    // Declare max difference for any 2 starters
+    ////////////////////////////////////////////////////////////////////////////
     let maxDifference = 0;
 
     // Calculate the max difference between any 2 players of the same position (for conditional formatting)
@@ -15,7 +26,9 @@ export function colorPlayers(allPlayers) {
         maxDifference = Math.max(maxDifference, Math.abs(score1 - score2));
     }
 
-    // Iterate through each player score and apply colors
+    ////////////////////////////////////////////////////////////////////////////
+    // Iterate through players and add conditionally formatted colors + differences
+    ////////////////////////////////////////////////////////////////////////////
     for (let i = 0; i < allPlayersScores.length; i += 2) {
         const score1Element = allPlayersScores[i];
         const score2Element = allPlayersScores[i + 1];
@@ -44,7 +57,7 @@ export function colorPlayers(allPlayers) {
                 differenceElement2.textContent = "0.00";
                 differenceElement2.style.color = 'white';
             }
-            continue; // Skip further processing if both are dashes
+            continue;
         }
 
         const difference = parseFloat((score1 - score2).toFixed(2));
@@ -53,7 +66,14 @@ export function colorPlayers(allPlayers) {
         const playerItem1 = score1Element.closest('.matchup-player-item');
         const playerItem2 = score2Element.closest('.matchup-player-item');
 
-        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '8px';
+        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+
+        // Load the CSS file
+        // loadStylesheet('css/playing.css');
+        
+        // // Apply the CSS class for animated border and glowing effect
+        // playerItem1.classList.add('player-item');
+        // playerItem2.classList.add('player-item');
 
         if (score1 < score2) {
             if (!isScore1Dash) {
@@ -110,13 +130,25 @@ export function colorPlayers(allPlayers) {
     }
 }
 
+function loadStylesheet(href) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = chrome.runtime.getURL(href);
+    document.head.appendChild(link);
+}
+
 function resetInGameItemColors() {
     const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
     inGameItems.forEach(item => {
         // Reset styles of the main element
         item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+        item.style.boxShadow = ''; // Reset box-shadow if needed
+        item.classList.remove('player-item'); // Remove the class if it's no longer needed
     });
+}
 
+function resetScoreDifference() {
     // Reset difference elements
     const differenceElements = document.querySelectorAll('.score-difference-added');
     differenceElements.forEach(diffElem => {

@@ -19,7 +19,14 @@
     {
       "matches": ["https://sleeper.com/*"],
       "js": ["dist/bundle.js"],
+      "css": ["css/redzone.css", "css/playing.css"],
       "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["*"],
+      "matches": ["https://sleeper.com/*"]
     }
   ]
 }
