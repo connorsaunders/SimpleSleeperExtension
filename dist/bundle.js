@@ -139,14 +139,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resizeScoreElement: () => (/* binding */ resizeScoreElement)
 /* harmony export */ });
+////////////////////////////////////////////////////////////////////////////
+// Resize the scores of both teams 
+////////////////////////////////////////////////////////////////////////////
+
 function resizeScoreElement() {
   // Select all score elements within the class `.roster-score-and-projection-matchup`
   const scoreElements = document.querySelectorAll(".roster-score-and-projection-matchup .score");
 
-  // Loop through all the matching elements and apply the styles
+  // Loop through all the matching elements (2) and apply the styles
   scoreElements.forEach(scoreElement => {
-    scoreElement.style.fontSize = "18px"; // Adjust the size as needed
-    scoreElement.style.fontWeight = "normal"; // Unbold the text by setting it to "normal"
+    scoreElement.style.fontSize = "18px";
+    scoreElement.style.fontWeight = "normal";
   });
 }
 
@@ -162,17 +166,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   displayScoreDifference: () => (/* binding */ displayScoreDifference)
 /* harmony export */ });
-// src/scoreDifference.js
+////////////////////////////////////////////////////////////////////////////
+// Create score differential element, add conditional colors to team scores
+////////////////////////////////////////////////////////////////////////////
 
 function displayScoreDifference(users, scores) {
   console.log('displayScoreDifference function is running');
   let retryCount = 0;
   const maxRetries = 1;
 
-  // Check scores function
+  ////////////////////////////////////////////////////////////////////////////
+  // Check scores
+  ////////////////////////////////////////////////////////////////////////////
   function checkScores() {
-    // Users and Scores captured:
+    // Users and scores captured:
     if (users.length === 2 && scores.length === 2) {
+      ////////////////////////////////////////////////////////////////////////////
+      // Capture my score and opponents
+      ////////////////////////////////////////////////////////////////////////////
       // Check if either score contains '-'
       const isScore1Dash = scores[0].textContent.trim() === "-";
       const isScore2Dash = scores[1].textContent.trim() === "-";
@@ -184,6 +195,9 @@ function displayScoreDifference(users, scores) {
       // Difference:
       const difference = myScore - opponentScore;
 
+      ////////////////////////////////////////////////////////////////////////////
+      // Create element display text
+      ////////////////////////////////////////////////////////////////////////////
       // Add difference element:
       let displayText = "";
       // Losing (negative difference):
@@ -196,16 +210,18 @@ function displayScoreDifference(users, scores) {
       } else {
         displayText = 'Tied';
       }
-
+      ////////////////////////////////////////////////////////////////////////////
       // Create or update element scoreDifferenceDisplay
+      ////////////////////////////////////////////////////////////////////////////
       let differenceElement = document.querySelector("#scoreDifferenceDisplay");
       if (!differenceElement) {
         differenceElement = document.createElement("div");
         differenceElement.id = "scoreDifferenceDisplay";
         document.body.appendChild(differenceElement);
       }
-
+      ////////////////////////////////////////////////////////////////////////////
       // Update display element traits:
+      ////////////////////////////////////////////////////////////////////////////
       differenceElement.textContent = displayText;
       differenceElement.style.padding = '10px';
       differenceElement.style.textAlign = 'center';
@@ -215,13 +231,17 @@ function displayScoreDifference(users, scores) {
       differenceElement.style.marginBottom = '10px';
       differenceElement.style.borderRadius = '8px';
 
-      // Insert the element:
+      ////////////////////////////////////////////////////////////////////////////
+      // Insert element:
+      ////////////////////////////////////////////////////////////////////////////
       const matchupHeader = document.querySelector('.matchup-row');
       if (matchupHeader && matchupHeader.parentNode) {
         matchupHeader.parentNode.insertBefore(differenceElement, matchupHeader.nextSibling);
       }
 
-      // Change colors for header:
+      ////////////////////////////////////////////////////////////////////////////
+      // Conditional color of score difference element:
+      ////////////////////////////////////////////////////////////////////////////
       const ownerItems = document.querySelectorAll('.matchup-owner-item');
       if (ownerItems.length === 2) {
         const ownerItem1 = ownerItems[0];
@@ -238,6 +258,7 @@ function displayScoreDifference(users, scores) {
           ownerItem2.style.backgroundColor = 'rgba(64, 64, 64, 0.15)';
         }
       }
+      // Potential refactor:
     } else if (retryCount >= maxRetries) {
       console.log('Max retries reached, giving up...');
     } else {
@@ -319,7 +340,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// Mutation Observer
+////////////////////////////////////////////////////////////////////////////
+// Mutation Observer:
+////////////////////////////////////////////////////////////////////////////
 window.addEventListener("load", function () {
   const observer = new MutationObserver(function (mutations) {
     observer.disconnect();
@@ -338,7 +361,9 @@ window.addEventListener("load", function () {
   observeDOM();
 });
 
+////////////////////////////////////////////////////////////////////////////
 // Main functionality:
+////////////////////////////////////////////////////////////////////////////
 let oldPlayers = null; // Store the previous state globally
 
 function main() {

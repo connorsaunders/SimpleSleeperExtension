@@ -2,7 +2,10 @@ import { colorPlayers } from "../utils/color-players";
 import { displayScoreDifference } from "../utils/score-difference";
 import { resizeScoreElement } from "../utils/resize-scores"; 
 
-// Mutation Observer
+
+////////////////////////////////////////////////////////////////////////////
+// Mutation Observer:
+////////////////////////////////////////////////////////////////////////////
 window.addEventListener("load", function () {
     const observer = new MutationObserver(function (mutations) {
         observer.disconnect();
@@ -23,7 +26,9 @@ window.addEventListener("load", function () {
     observeDOM();
 });
 
+////////////////////////////////////////////////////////////////////////////
 // Main functionality:
+////////////////////////////////////////////////////////////////////////////
 let oldPlayers = null; // Store the previous state globally
 
 function main() {
