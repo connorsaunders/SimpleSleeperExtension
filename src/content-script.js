@@ -1,6 +1,7 @@
-import { colorPlayers } from "../utils/color-players";
+import { colorPlayers } from "../utils/add-heat-map";
 import { displayScoreDifference } from "../utils/score-difference";
 import { resizeScoreElement } from "../utils/resize-scores"; 
+import { colorStatus } from "../utils/add-playing-redzone";
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -41,6 +42,7 @@ function main() {
         const scores = document.querySelectorAll(".matchup-row .user .score");
 
         // Apply the custom color formatting and score difference display
+        colorStatus(allPlayers);
         colorPlayers(allPlayers);
         displayScoreDifference(users, scores);
         resizeScoreElement(); // Call the imported resize function

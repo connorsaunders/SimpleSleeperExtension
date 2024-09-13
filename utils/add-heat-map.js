@@ -66,12 +66,30 @@ export function colorPlayers(allPlayers) {
         const playerItem1 = score1Element.closest('.matchup-player-item');
         const playerItem2 = score2Element.closest('.matchup-player-item');
 
-        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
 
-        // Load the CSS file
+        // Playing not in redzone:
+        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(255, 255, 0, .5)';
+        // // Load the CSS file
         // loadStylesheet('css/playing.css');
         
-        // // Apply the CSS class for animated border and glowing effect
+        // Playing in redzone:
+        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
+
+        // Has not played yet:
+        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
+
+        // Has not played yet:
+        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
+
+        // Load the CSS file
+        //loadStylesheet('css/redzone.css');
+
+
+        // Apply the CSS class for animated border and glowing effect
         // playerItem1.classList.add('player-item');
         // playerItem2.classList.add('player-item');
 
@@ -128,14 +146,6 @@ export function colorPlayers(allPlayers) {
         differenceElement2.textContent = differenceScore2 > 0 ? `+${differenceScore2.toFixed(2)}` : differenceScore2.toFixed(2);
         differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : (differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white');
     }
-}
-
-function loadStylesheet(href) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = chrome.runtime.getURL(href);
-    document.head.appendChild(link);
 }
 
 function resetInGameItemColors() {

@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./utils/color-players.js":
-/*!********************************!*\
-  !*** ./utils/color-players.js ***!
-  \********************************/
+/***/ "./utils/add-heat-map.js":
+/*!*******************************!*\
+  !*** ./utils/add-heat-map.js ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -73,12 +73,29 @@ function colorPlayers(allPlayers) {
     const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
     const playerItem1 = score1Element.closest('.matchup-player-item');
     const playerItem2 = score2Element.closest('.matchup-player-item');
-    playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
 
-    // Load the CSS file
+    // Playing not in redzone:
+    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(255, 255, 0, .5)';
+    // // Load the CSS file
     // loadStylesheet('css/playing.css');
 
-    // // Apply the CSS class for animated border and glowing effect
+    // Playing in redzone:
+    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
+
+    // Has not played yet:
+    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
+
+    // Has not played yet:
+    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
+
+    // Load the CSS file
+    //loadStylesheet('css/redzone.css');
+
+    // Apply the CSS class for animated border and glowing effect
     // playerItem1.classList.add('player-item');
     // playerItem2.classList.add('player-item');
 
@@ -133,13 +150,6 @@ function colorPlayers(allPlayers) {
     differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white';
   }
 }
-function loadStylesheet(href) {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.href = chrome.runtime.getURL(href);
-  document.head.appendChild(link);
-}
 function resetInGameItemColors() {
   const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
   inGameItems.forEach(item => {
@@ -156,6 +166,66 @@ function resetScoreDifference() {
     diffElem.textContent = '0.00';
     diffElem.style.color = 'white';
   });
+}
+
+/***/ }),
+
+/***/ "./utils/add-playing-redzone.js":
+/*!**************************************!*\
+  !*** ./utils/add-playing-redzone.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   colorStatus: () => (/* binding */ colorStatus)
+/* harmony export */ });
+function colorStatus(allPlayers) {
+  const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
+  for (let i = 0; i < allPlayersScores.length; i += 2) {
+    const score1Element = allPlayersScores[i];
+    const score2Element = allPlayersScores[i + 1];
+    const playerItem1 = score1Element.closest('.matchup-player-item');
+    const playerItem2 = score2Element.closest('.matchup-player-item');
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Playing not in redzone:
+    ////////////////////////////////////////////////////////////////////////////
+    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(255, 255, 0, .5)';
+    // loadStylesheet('./css/playing.css');
+    // playerItem1.classList.add('player-item');
+    // playerItem2.classList.add('player-item');
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Playing in redzone:
+    ////////////////////////////////////////////////////////////////////////////
+    playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
+    loadStylesheet('./css/redzone.css');
+    playerItem1.classList.add('player-item');
+    playerItem2.classList.add('player-item');
+  }
+  function loadStylesheet(href) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = chrome.runtime.getURL(href);
+    document.head.appendChild(link);
+  }
+
+  // Has not played yet:
+  // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+  // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
+
+  // Has not played yet:
+  // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+  // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
+
+  // Load the CSS file
+  //loadStylesheet('css/redzone.css');
+
+  // Apply the CSS class for animated border and glowing effect
 }
 
 /***/ }),
@@ -372,9 +442,11 @@ var __webpack_exports__ = {};
   !*** ./src/content-script.js ***!
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_color_players__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/color-players */ "./utils/color-players.js");
+/* harmony import */ var _utils_add_heat_map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/add-heat-map */ "./utils/add-heat-map.js");
 /* harmony import */ var _utils_score_difference__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/score-difference */ "./utils/score-difference.js");
 /* harmony import */ var _utils_resize_scores__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/resize-scores */ "./utils/resize-scores.js");
+/* harmony import */ var _utils_add_playing_redzone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/add-playing-redzone */ "./utils/add-playing-redzone.js");
+
 
 
 
@@ -415,7 +487,8 @@ function main() {
     const scores = document.querySelectorAll(".matchup-row .user .score");
 
     // Apply the custom color formatting and score difference display
-    (0,_utils_color_players__WEBPACK_IMPORTED_MODULE_0__.colorPlayers)(allPlayers);
+    (0,_utils_add_playing_redzone__WEBPACK_IMPORTED_MODULE_3__.colorStatus)(allPlayers);
+    (0,_utils_add_heat_map__WEBPACK_IMPORTED_MODULE_0__.colorPlayers)(allPlayers);
     (0,_utils_score_difference__WEBPACK_IMPORTED_MODULE_1__.displayScoreDifference)(users, scores);
     (0,_utils_resize_scores__WEBPACK_IMPORTED_MODULE_2__.resizeScoreElement)(); // Call the imported resize function
 
