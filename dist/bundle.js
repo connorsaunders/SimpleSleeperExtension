@@ -52,8 +52,8 @@ function colorPlayers(allPlayers) {
     let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
     // Reset colors if both scores are dashes
     if (isScore1Dash && isScore2Dash) {
-      score1Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-      score2Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+      //score1Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+      //score2Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
       // Also reset the difference element to "0.00"
       const uniqueId1 = `difference-${i}`;
       const uniqueId2 = `difference-${i + 1}`;
@@ -89,8 +89,11 @@ function colorPlayers(allPlayers) {
     // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
 
     // Has not played yet:
-    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
+    playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
+    playerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
+    playerItem2.style.borderRadius = playerItem2.style.borderRadius = '10px';
+    playerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
+    //playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
 
     // Load the CSS file
     //loadStylesheet('css/redzone.css');
@@ -185,8 +188,8 @@ function colorStatus(allPlayers) {
   for (let i = 0; i < allPlayersScores.length; i += 2) {
     const score1Element = allPlayersScores[i];
     const score2Element = allPlayersScores[i + 1];
-    const playerItem1 = score1Element.closest('.matchup-player-item');
-    const playerItem2 = score2Element.closest('.matchup-player-item');
+    // const playerItem1 = score1Element.closest('.matchup-player-item');
+    // const playerItem2 = score2Element.closest('.matchup-player-item');
 
     ////////////////////////////////////////////////////////////////////////////
     // Playing not in redzone:
@@ -200,11 +203,16 @@ function colorStatus(allPlayers) {
     ////////////////////////////////////////////////////////////////////////////
     // Playing in redzone:
     ////////////////////////////////////////////////////////////////////////////
-    playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
-    loadStylesheet('./css/redzone.css');
-    playerItem1.classList.add('player-item');
-    playerItem2.classList.add('player-item');
+    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
+    // loadStylesheet('./css/redzone.css');
+    // playerItem1.classList.add('player-item');
+    // playerItem2.classList.add('player-item');
+
+    // Has not played yet:
+    //playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
+    //playerItem1.style.outline = playerItem2.style.outline = '2px solid rgba(200, 200, 200, 1)';
+    //playerItem1.style.outline = playerItem2.style.outline = '2px solid rgba(100, 100, 100, 1)';
   }
   function loadStylesheet(href) {
     const link = document.createElement('link');
@@ -332,7 +340,7 @@ function displayScoreDifference(users, scores) {
       differenceElement.style.marginBottom = '10px';
       differenceElement.style.borderRadius = '8px';
       //differenceElement.style.outline = difference < 0 ? '2px solid rgba(0, 0, 0, 0.4)' : (difference === 0 ? '2px solid rgba(0, 0, 0, 0.4)' : '2px solid rgba(0, 0, 0, 0.4)');
-      differenceElement.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)';
+      differenceElement.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
 
       ////////////////////////////////////////////////////////////////////////////
       // Insert element:
@@ -349,8 +357,8 @@ function displayScoreDifference(users, scores) {
       if (ownerItems.length === 2) {
         const ownerItem1 = ownerItems[0];
         const ownerItem2 = ownerItems[1];
-        ownerItem1.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)';
-        ownerItem2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)';
+        ownerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
+        ownerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
         if (difference < 0) {
           ownerItem1.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
           ownerItem2.style.backgroundColor = 'rgba(0, 128, 0, 0.15)';

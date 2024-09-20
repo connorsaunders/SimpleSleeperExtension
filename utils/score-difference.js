@@ -66,7 +66,7 @@ export function displayScoreDifference(users, scores) {
             differenceElement.style.marginBottom = '10px';
             differenceElement.style.borderRadius = '8px';   
             //differenceElement.style.outline = difference < 0 ? '2px solid rgba(0, 0, 0, 0.4)' : (difference === 0 ? '2px solid rgba(0, 0, 0, 0.4)' : '2px solid rgba(0, 0, 0, 0.4)');
-            differenceElement.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)'
+            differenceElement.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
 
             ////////////////////////////////////////////////////////////////////////////
             // Insert element:
@@ -84,8 +84,8 @@ export function displayScoreDifference(users, scores) {
                 const ownerItem1 = ownerItems[0];
                 const ownerItem2 = ownerItems[1];
                 
-                ownerItem1.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)'
-                ownerItem2.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.3)'
+                ownerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+                ownerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
 
 
                 if (difference < 0) {

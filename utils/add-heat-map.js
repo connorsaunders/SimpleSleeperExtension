@@ -40,8 +40,8 @@ export function colorPlayers(allPlayers) {
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
         // Reset colors if both scores are dashes
         if (isScore1Dash && isScore2Dash) {
-            score1Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-            score2Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+            //score1Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+            //score2Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
             // Also reset the difference element to "0.00"
             const uniqueId1 = `difference-${i}`;
             const uniqueId2 = `difference-${i + 1}`;
@@ -82,8 +82,11 @@ export function colorPlayers(allPlayers) {
         // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
 
         // Has not played yet:
-        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
+         playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
+         playerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+         playerItem2.style.borderRadius = playerItem2.style.borderRadius = '10px';
+         playerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+         //playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
 
         // Load the CSS file
         //loadStylesheet('css/redzone.css');
