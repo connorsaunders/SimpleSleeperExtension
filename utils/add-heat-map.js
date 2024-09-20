@@ -38,11 +38,12 @@ export function colorPlayers(allPlayers) {
 
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
+
+        const playerItem1 = score1Element.closest('.matchup-player-item');
+        const playerItem2 = score2Element.closest('.matchup-player-item');
+
         // Reset colors if both scores are dashes
         if (isScore1Dash && isScore2Dash) {
-            //score1Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-            //score2Element.closest('.matchup-player-item').style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-            // Also reset the difference element to "0.00"
             const uniqueId1 = `difference-${i}`;
             const uniqueId2 = `difference-${i + 1}`;
 
@@ -57,44 +58,14 @@ export function colorPlayers(allPlayers) {
                 differenceElement2.textContent = "0.00";
                 differenceElement2.style.color = 'white';
             }
-            continue;
         }
+        playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
+        playerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
+        playerItem2.style.borderRadius = playerItem2.style.borderRadius = '10px';
+        playerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
 
         const difference = parseFloat((score1 - score2).toFixed(2));
         const intensity = Math.abs(difference) / maxDifference * 0.15 + 0.05;
-
-        const playerItem1 = score1Element.closest('.matchup-player-item');
-        const playerItem2 = score2Element.closest('.matchup-player-item');
-
-
-        // Playing not in redzone:
-        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(255, 255, 0, .5)';
-        // // Load the CSS file
-        // loadStylesheet('css/playing.css');
-        
-        // Playing in redzone:
-        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
-
-        // Has not played yet:
-        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
-
-        // Has not played yet:
-         playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
-         playerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
-         playerItem2.style.borderRadius = playerItem2.style.borderRadius = '10px';
-         playerItem2.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
-         //playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
-
-        // Load the CSS file
-        //loadStylesheet('css/redzone.css');
-
-
-        // Apply the CSS class for animated border and glowing effect
-        // playerItem1.classList.add('player-item');
-        // playerItem2.classList.add('player-item');
 
         if (score1 < score2) {
             if (!isScore1Dash) {
