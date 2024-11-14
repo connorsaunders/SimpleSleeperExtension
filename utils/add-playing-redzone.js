@@ -1,60 +1,27 @@
-export function colorStatus(allPlayers) {
-
-    const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
-
-
-    for (let i = 0; i < allPlayersScores.length; i += 2) {
-        const score1Element = allPlayersScores[i];
-        const score2Element = allPlayersScores[i + 1];
-        // const playerItem1 = score1Element.closest('.matchup-player-item');
-        // const playerItem2 = score2Element.closest('.matchup-player-item');
-
-        ////////////////////////////////////////////////////////////////////////////
-        // Playing not in redzone:
-        ////////////////////////////////////////////////////////////////////////////
-        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(255, 255, 0, .5)';
-        // loadStylesheet('./css/playing.css');
-        // playerItem1.classList.add('player-item');
-        // playerItem2.classList.add('player-item');
-
-        ////////////////////////////////////////////////////////////////////////////
-        // Playing in redzone:
-        ////////////////////////////////////////////////////////////////////////////
-        // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
-        // loadStylesheet('./css/redzone.css');
-        // playerItem1.classList.add('player-item');
-        // playerItem2.classList.add('player-item');
-
-        // Has not played yet:
-        //playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-        //playerItem1.style.outline = playerItem2.style.outline = '2px solid rgba(200, 200, 200, 1)';
-        //playerItem1.style.outline = playerItem2.style.outline = '2px solid rgba(100, 100, 100, 1)';
-
+export function colorStatus(playerItem, isInRedzone) {
+    if (!playerItem) {
+        console.error("playerItem is undefined or null.");
+        return; // Exit early if the playerItem is not valid
     }
 
-    function loadStylesheet(href) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = chrome.runtime.getURL(href);
-        document.head.appendChild(link);
+    // Now safely apply the styles
+    playerItem.style.borderRadius = '15px';
+
+    if (isInRedzone) {
+        playerItem.style.outline = '1px solid rgba(251, 44, 107, 0.5)';
+        loadStylesheet('./css/redzone.css');
+    } else {
+        playerItem.style.outline = '2.5px solid rgba(255, 255, 0, 0.5)';
+        loadStylesheet('./css/playing.css');
     }
 
-    
-    // Has not played yet:
-    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
+    playerItem.classList.add('player-item');
+}
 
-    // Has not played yet:
-    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
-
-    // Load the CSS file
-    //loadStylesheet('css/redzone.css');
-
-
-    // Apply the CSS class for animated border and glowing effect
-
+function loadStylesheet(href) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = chrome.runtime.getURL(href);
+    document.head.appendChild(link);
 }

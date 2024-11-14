@@ -42,7 +42,6 @@ function main() {
         const scores = document.querySelectorAll(".matchup-row .user .score");
 
         // Apply the custom color formatting and score difference display
-        colorStatus(allPlayers);
         colorPlayers(allPlayers);
         displayScoreDifference(users, scores);
         resizeScoreElement(); // Call the imported resize function

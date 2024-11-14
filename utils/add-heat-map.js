@@ -1,22 +1,18 @@
-////////////////////////////////////////////////////////////////////////////
 // Add heatmap to players 
-////////////////////////////////////////////////////////////////////////////
+import { resetInGameItemColors } from './reset-in-game-colors'; // Import resetInGameItemColors
+import { resetScoreDifference } from './reset-score-difference'; // Import resetScoreDifference
+import { checkFlexGrow } from './check-flex-grow'; // Import checkFlexGrow
 
 export function colorPlayers(allPlayers) {
-    ////////////////////////////////////////////////////////////////////////////
+
     // Reset in-game color scheme and individual player score differences
-    ////////////////////////////////////////////////////////////////////////////
     resetInGameItemColors();
     resetScoreDifference();
     
-    ////////////////////////////////////////////////////////////////////////////
-    // Grab all players scores:
-    ////////////////////////////////////////////////////////////////////////////
+    // Fetch all players scores:
     const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
     
-    ////////////////////////////////////////////////////////////////////////////
     // Declare max difference for any 2 starters
-    ////////////////////////////////////////////////////////////////////////////
     let maxDifference = 0;
 
     // Calculate the max difference between any 2 players of the same position (for conditional formatting)
@@ -26,26 +22,28 @@ export function colorPlayers(allPlayers) {
         maxDifference = Math.max(maxDifference, Math.abs(score1 - score2));
     }
 
-    ////////////////////////////////////////////////////////////////////////////
     // Iterate through players and add conditionally formatted colors + differences
-    ////////////////////////////////////////////////////////////////////////////
     for (let i = 0; i < allPlayersScores.length; i += 2) {
         const score1Element = allPlayersScores[i];
         const score2Element = allPlayersScores[i + 1];
 
         const isScore1Dash = score1Element.textContent.trim() === "-";
         const isScore2Dash = score2Element.textContent.trim() === "-";
-
         let score1 = isScore1Dash ? 0 : parseFloat(score1Element.textContent);
         let score2 = isScore2Dash ? 0 : parseFloat(score2Element.textContent);
-
         const playerItem1 = score1Element.closest('.matchup-player-item');
         const playerItem2 = score2Element.closest('.matchup-player-item');
 
+        // Call the function for both playerItem1 and playerItem2
+        checkFlexGrow(playerItem1, 1);
+        checkFlexGrow(playerItem2, 2);
+        
         // Reset colors if both scores are dashes
         if (isScore1Dash && isScore2Dash) {
             const uniqueId1 = `difference-${i}`;
             const uniqueId2 = `difference-${i + 1}`;
+            playerItem1.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+            playerItem2.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
 
             const differenceElement1 = document.querySelector(`#${uniqueId1}`);
             const differenceElement2 = document.querySelector(`#${uniqueId2}`);
@@ -59,6 +57,13 @@ export function colorPlayers(allPlayers) {
                 differenceElement2.style.color = 'white';
             }
         }
+        if (isScore1Dash) {
+            playerItem1.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+        }
+        if (isScore2Dash) {
+            playerItem2.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+        }
+
         playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
         playerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)'
         playerItem2.style.borderRadius = playerItem2.style.borderRadius = '10px';
@@ -120,23 +125,4 @@ export function colorPlayers(allPlayers) {
         differenceElement2.textContent = differenceScore2 > 0 ? `+${differenceScore2.toFixed(2)}` : differenceScore2.toFixed(2);
         differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : (differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white');
     }
-}
-
-function resetInGameItemColors() {
-    const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
-    inGameItems.forEach(item => {
-        // Reset styles of the main element
-        item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-        item.style.boxShadow = ''; // Reset box-shadow if needed
-        item.classList.remove('player-item'); // Remove the class if it's no longer needed
-    });
-}
-
-function resetScoreDifference() {
-    // Reset difference elements
-    const differenceElements = document.querySelectorAll('.score-difference-added');
-    differenceElements.forEach(diffElem => {
-        diffElem.textContent = '0.00';
-        diffElem.style.color = 'white';
-    });
 }

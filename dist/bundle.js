@@ -12,25 +12,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   colorPlayers: () => (/* binding */ colorPlayers)
 /* harmony export */ });
-////////////////////////////////////////////////////////////////////////////
+/* harmony import */ var _reset_in_game_colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reset-in-game-colors */ "./utils/reset-in-game-colors.js");
+/* harmony import */ var _reset_score_difference__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reset-score-difference */ "./utils/reset-score-difference.js");
+/* harmony import */ var _check_flex_grow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./check-flex-grow */ "./utils/check-flex-grow.js");
 // Add heatmap to players 
-////////////////////////////////////////////////////////////////////////////
+ // Import resetInGameItemColors
+ // Import resetScoreDifference
+ // Import checkFlexGrow
 
 function colorPlayers(allPlayers) {
-  ////////////////////////////////////////////////////////////////////////////
   // Reset in-game color scheme and individual player score differences
-  ////////////////////////////////////////////////////////////////////////////
-  resetInGameItemColors();
-  resetScoreDifference();
+  (0,_reset_in_game_colors__WEBPACK_IMPORTED_MODULE_0__.resetInGameItemColors)();
+  (0,_reset_score_difference__WEBPACK_IMPORTED_MODULE_1__.resetScoreDifference)();
 
-  ////////////////////////////////////////////////////////////////////////////
-  // Grab all players scores:
-  ////////////////////////////////////////////////////////////////////////////
+  // Fetch all players scores:
   const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
 
-  ////////////////////////////////////////////////////////////////////////////
   // Declare max difference for any 2 starters
-  ////////////////////////////////////////////////////////////////////////////
   let maxDifference = 0;
 
   // Calculate the max difference between any 2 players of the same position (for conditional formatting)
@@ -40,9 +38,7 @@ function colorPlayers(allPlayers) {
     maxDifference = Math.max(maxDifference, Math.abs(score1 - score2));
   }
 
-  ////////////////////////////////////////////////////////////////////////////
   // Iterate through players and add conditionally formatted colors + differences
-  ////////////////////////////////////////////////////////////////////////////
   for (let i = 0; i < allPlayersScores.length; i += 2) {
     const score1Element = allPlayersScores[i];
     const score2Element = allPlayersScores[i + 1];
@@ -53,10 +49,16 @@ function colorPlayers(allPlayers) {
     const playerItem1 = score1Element.closest('.matchup-player-item');
     const playerItem2 = score2Element.closest('.matchup-player-item');
 
+    // Call the function for both playerItem1 and playerItem2
+    (0,_check_flex_grow__WEBPACK_IMPORTED_MODULE_2__.checkFlexGrow)(playerItem1, 1);
+    (0,_check_flex_grow__WEBPACK_IMPORTED_MODULE_2__.checkFlexGrow)(playerItem2, 2);
+
     // Reset colors if both scores are dashes
     if (isScore1Dash && isScore2Dash) {
       const uniqueId1 = `difference-${i}`;
       const uniqueId2 = `difference-${i + 1}`;
+      playerItem1.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+      playerItem2.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
       const differenceElement1 = document.querySelector(`#${uniqueId1}`);
       const differenceElement2 = document.querySelector(`#${uniqueId2}`);
       if (differenceElement1) {
@@ -67,6 +69,12 @@ function colorPlayers(allPlayers) {
         differenceElement2.textContent = "0.00";
         differenceElement2.style.color = 'white';
       }
+    }
+    if (isScore1Dash) {
+      playerItem1.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+    }
+    if (isScore2Dash) {
+      playerItem2.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
     }
     playerItem1.style.borderRadius = playerItem2.style.borderRadius = '10px';
     playerItem1.style.boxShadow = '1px 1px 3px rgba(0, 0, 0, 0.3)';
@@ -125,23 +133,6 @@ function colorPlayers(allPlayers) {
     differenceElement2.style.color = differenceScore2 < 0 ? 'rgb(251,44,107)' : differenceScore2 > 0 ? 'rgb(4,204,188)' : 'white';
   }
 }
-function resetInGameItemColors() {
-  const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
-  inGameItems.forEach(item => {
-    // Reset styles of the main element
-    item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-    item.style.boxShadow = ''; // Reset box-shadow if needed
-    item.classList.remove('player-item'); // Remove the class if it's no longer needed
-  });
-}
-function resetScoreDifference() {
-  // Reset difference elements
-  const differenceElements = document.querySelectorAll('.score-difference-added');
-  differenceElements.forEach(diffElem => {
-    diffElem.textContent = '0.00';
-    diffElem.style.color = 'white';
-  });
-}
 
 /***/ }),
 
@@ -155,57 +146,104 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   colorStatus: () => (/* binding */ colorStatus)
 /* harmony export */ });
-function colorStatus(allPlayers) {
-  const allPlayersScores = allPlayers ? allPlayers.querySelectorAll(".player-scoring .score") : [];
-  for (let i = 0; i < allPlayersScores.length; i += 2) {
-    const score1Element = allPlayersScores[i];
-    const score2Element = allPlayersScores[i + 1];
-    // const playerItem1 = score1Element.closest('.matchup-player-item');
-    // const playerItem2 = score2Element.closest('.matchup-player-item');
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Playing not in redzone:
-    ////////////////////////////////////////////////////////////////////////////
-    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(255, 255, 0, .5)';
-    // loadStylesheet('./css/playing.css');
-    // playerItem1.classList.add('player-item');
-    // playerItem2.classList.add('player-item');
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Playing in redzone:
-    ////////////////////////////////////////////////////////////////////////////
-    // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(251, 44, 107, 0.5)';
-    // loadStylesheet('./css/redzone.css');
-    // playerItem1.classList.add('player-item');
-    // playerItem2.classList.add('player-item');
-
-    // Has not played yet:
-    //playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-    //playerItem1.style.outline = playerItem2.style.outline = '2px solid rgba(200, 200, 200, 1)';
-    //playerItem1.style.outline = playerItem2.style.outline = '2px solid rgba(100, 100, 100, 1)';
-  }
-  function loadStylesheet(href) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = chrome.runtime.getURL(href);
-    document.head.appendChild(link);
+function colorStatus(playerItem, isInRedzone) {
+  if (!playerItem) {
+    console.error("playerItem is undefined or null.");
+    return; // Exit early if the playerItem is not valid
   }
 
-  // Has not played yet:
-  // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-  // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(150, 150, 150, 0.75)';
+  // Now safely apply the styles
+  playerItem.style.borderRadius = '15px';
+  if (isInRedzone) {
+    playerItem.style.outline = '1px solid rgba(251, 44, 107, 0.5)';
+    loadStylesheet('./css/redzone.css');
+  } else {
+    playerItem.style.outline = '2.5px solid rgba(255, 255, 0, 0.5)';
+    loadStylesheet('./css/playing.css');
+  }
+  playerItem.classList.add('player-item');
+}
+function loadStylesheet(href) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = chrome.runtime.getURL(href);
+  document.head.appendChild(link);
+}
 
-  // Has not played yet:
-  // playerItem1.style.borderRadius = playerItem2.style.borderRadius = '15px';
-  // playerItem1.style.outline = playerItem2.style.outline = '3px solid rgba(0, 0, 0, .5)';
+/***/ }),
 
-  // Load the CSS file
-  //loadStylesheet('css/redzone.css');
+/***/ "./utils/check-flex-grow.js":
+/*!**********************************!*\
+  !*** ./utils/check-flex-grow.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-  // Apply the CSS class for animated border and glowing effect
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   checkFlexGrow: () => (/* binding */ checkFlexGrow)
+/* harmony export */ });
+/* harmony import */ var _add_playing_redzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-playing-redzone */ "./utils/add-playing-redzone.js");
+// check-flex-grow.js
+
+function checkFlexGrow(playerItem, itemIndex) {
+  const possessionIndicator = playerItem.querySelector('.possession-indicator-rate .divider div');
+  if (possessionIndicator) {
+    const computedStyle = window.getComputedStyle(possessionIndicator);
+    const flexGrowValue = parseFloat(computedStyle.flexGrow);
+
+    // Log the flex-grow value
+    console.log(`Flex-grow value for player ${itemIndex} is ${flexGrowValue}, which is ${flexGrowValue >= 0.80 ? '>= 0.80' : '< 0.80'}`);
+
+    // Apply the appropriate styles using colorStatus based on the flex-grow value
+    const isInRedzone = flexGrowValue >= 0.80;
+    (0,_add_playing_redzone__WEBPACK_IMPORTED_MODULE_0__.colorStatus)(playerItem, isInRedzone);
+  }
+}
+
+/***/ }),
+
+/***/ "./utils/reset-in-game-colors.js":
+/*!***************************************!*\
+  !*** ./utils/reset-in-game-colors.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resetInGameItemColors: () => (/* binding */ resetInGameItemColors)
+/* harmony export */ });
+// reset-in-game-colors.js
+function resetInGameItemColors() {
+  const inGameItems = document.querySelectorAll(".matchup-player-body-item.in-game-flip, .matchup-player-body-item.in-game");
+  inGameItems.forEach(item => {
+    // Reset styles of the main element
+    item.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+    item.style.boxShadow = ''; // Reset box-shadow if needed
+    item.classList.remove('player-item'); // Remove the class if it's no longer needed
+  });
+}
+
+/***/ }),
+
+/***/ "./utils/reset-score-difference.js":
+/*!*****************************************!*\
+  !*** ./utils/reset-score-difference.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resetScoreDifference: () => (/* binding */ resetScoreDifference)
+/* harmony export */ });
+// reset-score-difference.js
+function resetScoreDifference() {
+  // Reset difference elements
+  const differenceElements = document.querySelectorAll('.score-difference-added');
+  differenceElements.forEach(diffElem => {
+    diffElem.textContent = '0.00';
+    diffElem.style.color = 'white';
+  });
 }
 
 /***/ }),
@@ -467,7 +505,6 @@ function main() {
     const scores = document.querySelectorAll(".matchup-row .user .score");
 
     // Apply the custom color formatting and score difference display
-    (0,_utils_add_playing_redzone__WEBPACK_IMPORTED_MODULE_3__.colorStatus)(allPlayers);
     (0,_utils_add_heat_map__WEBPACK_IMPORTED_MODULE_0__.colorPlayers)(allPlayers);
     (0,_utils_score_difference__WEBPACK_IMPORTED_MODULE_1__.displayScoreDifference)(users, scores);
     (0,_utils_resize_scores__WEBPACK_IMPORTED_MODULE_2__.resizeScoreElement)(); // Call the imported resize function

@@ -23,7 +23,7 @@
 }
 
 .player-item {
-    border-radius: 8px;
+    border-radius: px;
     animation: flash 2s infinite, glow 3s infinite; /* Adjusted timing for slower blink */
     background-color: rgba(255, 255, 255, 0.04); /* Optional background color */
 }
